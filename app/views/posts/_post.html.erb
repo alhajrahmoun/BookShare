@@ -1,0 +1,54 @@
+<%= div_for post do %> 
+        <div class="row">
+            <div class="col-md-1">
+                <%= image_tag User.find(post.user_id).image.url , size: "80x80", class: 'img-c' %>
+            </div>
+            <div class="col-md-6">
+                
+                <strong><%=link_to "#{[User.find(post.user_id).first_name,User.find(post.user_id).last_name].join(" ")}", user_path(post.user_id) %></strong>
+                <p><%= time_ago_in_words(post.created_at) %> Ago</p>
+                
+                <br>
+                <div class="row">
+                <p><%= post.body%></p>
+                </div>
+
+                
+                  <div class="row">
+                    <div class="btn-group btn-group-xs">
+                      <div class="like">
+                               <% if current_user.likes?(post) %>
+                                 <h4><%=link_to "unlike", unlike_post_path(post), remote: true,  class: 'btn btn-default' %></h4>
+                               <% else %>
+                                   <h4><%=link_to "like", like_post_path(post), remote: true, class: 'btn btn-default'%></h4>
+                               <% end %>
+                            </div>
+                        </div>
+                    </div>
+
+                <br> 
+                 <div class="comment-info">
+                 <% likes = Like.where("likeable_type = 'Post' AND likeable_id = #{post.id}").count%>
+                  <p><%= pluralize(likes, "like")%>, <%= pluralize(post.comments.count, "Comment") %></p>
+                 </div>
+                 <div class="comments">
+                   <%= render post.comments %>
+                </div>
+
+                <div class="row">
+                 <%= form_for [post, post.comments.build], class: 'form-horizontal', remote: true do |form| %>
+                      <div class="form-group">
+                      <div class="col-md-8">
+                      <%= form.text_field :body , class: 'form-control' %>
+                      </div>
+                      <div class="col-md-4">
+                      <%= form.submit "submit" , class: 'form-control btn btn-primary', value: 'Add Comment' %>
+                      </div>
+                      </div>
+                  <% end %> 
+                </div>
+            </div>
+            
+           </div>
+               
+ <% end %>

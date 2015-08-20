@@ -1,0 +1,26 @@
+<%= div_for comment do%>
+
+<div class="row">
+     <div class="col-md-1">
+          <%= image_tag User.find(comment.user_id).image.url , size: "30x30", class: 'img-c' %>
+     </div>
+     <div class="col-md-6">
+         <strong><%=link_to "#{[User.find(comment.user_id).first_name,User.find(comment.user_id).last_name].join(" ")}", user_path(comment.user_id) %></strong>
+         <div class="comment-likes">
+         <% likes = Like.where("likeable_type = 'Comment' AND likeable_id = #{comment.id}").count%>
+         <p><%= pluralize(likes, "like")%></p>
+         </div>
+         <p><%= comment.body%></p>
+                     
+    </div>
+     <div class="btn-group btn-group-xs">
+            <div class="comment-like">
+                   <% if current_user.likes?(comment) %>                               
+                   <h4><%=link_to "unlike", unlike_post_comment_path(comment.post_id,comment), remote: true,  class: 'btn btn-default' %></h4>
+                   <% else %>
+                   <h4><%=link_to "like", like_post_comment_path(comment.post_id,comment), remote: true,  class: 'btn btn-default'%></h4>
+                   <% end %>
+            </div>
+     </div>
+</div>
+<% end %>

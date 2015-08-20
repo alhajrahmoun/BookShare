@@ -1,0 +1,15 @@
+<%= div_for community do %>
+        <strong><%= link_to "#{community.name}", community_path(community) %></strong>
+             <p><%= community.description %></p>
+                 <div class="btn-group btn-group-xs">
+                     <div class="follow-community">
+                     <% if user_signed_in?%>
+          				 <% if current_user.follows?(community) %>
+                               <h4><%=link_to "unfollow", unfollow_community_path(community), remote: true, class: 'btn btn-primary'%></h4>
+                         <% else %>
+                               <h4><%=link_to "follow", follow_community_path(community), remote: true, class: 'btn btn-primary'%></h4>
+                         <% end %>
+                         <% end %>
+                     </div>
+                </div>
+<% end %>

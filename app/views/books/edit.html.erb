@@ -1,0 +1,76 @@
+<%= stylesheet_link_tag 'register', media: 'all', 'data-turbolinks-track' => true %>
+
+     <div class="jumbotron">
+    <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <%= link_to "Home", root_path, class: "navbar-brand"%></li>
+                    </div>
+                
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><%= link_to "Home", root_path%></li>
+                        <li><%=link_to "Communities", communities_path %></li>
+                        <% if user_signed_in?%>
+                        <li><%=link_to "Profile", user_path(current_user) %></li>
+          
+                         <li><%=link_to "Sign Out", users_sign_out_path%></li>
+                          <% else %>
+                        <li ><a href="#">Contact Us</a></li>
+                        <% end %>
+                        <li ><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <div class="col-md-8 col-md-offset-2">
+  <%= form_for @book, html: {class: "form-horizontal signup-form", :multipart => true} do |f| %>
+
+    <div class="form-group">
+      <%= f.label :title, class: 'col-md-2 control-label' %>
+    <div class="col-md-8">
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, class: 'col-md-2 control-label' %>
+    <div class="col-md-8">
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :ISBN, class: 'col-md-2 control-label' %>
+    <div class="col-md-8">
+      <%= f.text_field :ISBN, class: 'form-control' %>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :community_id, class: 'col-md-2 control-label' %>
+    <div class="col-md-8">
+     <%= f.select :community_id, options_for_select(Community.all.map { |community| [community.name, community.id] }) , {}, class: 'form-control'  %>
+
+    </div>
+    </div>
+ 
+     <div class="form-group ">
+     <div class="col-md-5 col-xs-8 col-md-offset-2">
+        <%= f.label :image %>
+        <%= f.file_field :image %>             
+     </div>
+     <div class="col-md-3 col-xs-4">
+        <%= f.submit "Add Book", class: 'form-control btn btn-primary' %>
+    </div>
+    </div>
+ 
+<% end %>
+

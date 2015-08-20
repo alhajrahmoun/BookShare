@@ -1,0 +1,61 @@
+ <%= stylesheet_link_tag 'home-style', media: 'all', 'data-turbolinks-track' => true %>
+
+ <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <%= link_to "BookShare", root_path, class: 'navbar-brand' %>
+                    </div>
+                
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><%= link_to "Home", root_path%></li>
+                        <li><%=link_to "Communities", communities_path %></li>
+                        <% if user_signed_in?%>
+                         <li><%=link_to "Profile", user_path(current_user) %></li>
+                         <li><%=link_to "edit Account", edit_user_registration_path(@user) %></li>
+                         <li><%=link_to "Sign Out", users_sign_out_path%></li>
+                          <% else %>
+                        <li ><a href="#">Contact Us</a></li>
+                        <li ><a href="#">About</a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="row">
+            <div class="col-md-12">
+              <div class="post" id="update">
+                <h2>Latest Updates</h2>
+                <%= render "update" %>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <%= form_for [@post, Post.new], remote: true, html:{class: 'form-horizontal post'} do |form|%>
+                  <div class="form-group">
+                    <%= form.label :"say something", class: 'col-md-2 control-label' %>
+                    <div class="col-md-7">
+                      <%= form.text_field :body, class: 'form-control textinput' %>
+                    </div>
+                      <div class="col-md-2">
+                      <%= form.submit "submit", class: 'form-control btn btn-primary'%>
+                      </div>
+                      </div>
+                      <% end %>
+                </div>
+        </div>
+
+      <div id="posts">
+
+      <% @posts.each do |post| %> 
+          <%= render post %>
+      <% end %>  
+      </div>
+      </div>

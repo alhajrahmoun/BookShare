@@ -1,0 +1,18 @@
+<h4>
+                <% unless @activity.empty?%>
+                  <p><%= time_ago_in_words(@last_follow.created_at)%> Ago: <%= link_to "#{[User.find(@last_follow.follower_id).first_name,User.find(@last_follow.follower_id).last_name].join(" ")}", user_path(User.find(@last_follow.follower_id))%> followed a <%= @last_follow.followable_type%>:
+                  <% if @last_follow.followable_type == 'Book'%>
+                    <%= link_to "#{Book.find(@last_follow.followable_id).title}", book_path(Book.find(@last_follow.followable_id))%></p>
+                  <% else %>
+                     <%=link_to "#{[User.find(@last_follow.followable_id).first_name,User.find(@last_follow.followable_id).last_name].join(" ")}", user_path(@last_follow.followable_id)%></p>
+                 <% end %>           
+                </h4>
+                
+                <h4>
+                <% unless @last_review.blank?%>
+                  <p><%= time_ago_in_words(@last_review.created_at)%> Ago: <%= link_to "#{[User.find(@last_review.user_id).first_name,User.find(@last_review.user_id).last_name].join(" ")}", user_path(User.find(@last_review.user_id))%> gave <%= pluralize(@last_review.rating, "stars")%> to <%= link_to "#{Book.find(@last_review.book_id).title}", book_path(Book.find(@last_review.book_id))%> and wrote a <%= link_to "review", book_path(Book.find(@last_review.book_id), anchor: "review_#{@last_review.id}") %>
+                 </p>
+                 <% end %>
+                 <% end %>
+                 </h4>
+                

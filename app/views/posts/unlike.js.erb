@@ -1,0 +1,2 @@
+$("#post_<%= @post.id %> * .comment-info").html('<p><%= pluralize(@likes, "like")%>, <%= pluralize(@post.comments.count, "Comment") %> </p>');
+$("#post_<%= @post.id %> * .like").html('<h4><%=link_to "like", like_post_path(@post),remote: true,  class: "btn btn-default" %></h4>');

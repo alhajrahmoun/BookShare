@@ -1,0 +1,231 @@
+.post label
+        {
+            color: white;
+            font-family: Arial;
+            font-style: italic;
+        }
+        .post input
+        {
+            font-family: Arial;
+            font-style: italic;
+        }
+        .post .textinput
+        {
+            
+            border-radius: none;
+            border: 1px solid white;
+           
+        }
+        .btn-primary
+        {
+            border-radius: 5px;
+            height: 47px;
+           
+            margin-top: -1px;
+        }
+        .review
+        {
+            margin-top: 20px;
+        }
+        .comment
+        {
+            
+        }
+        @media (max-width: 991px)
+        {
+            .review
+            {
+                padding: 20px;
+                
+            }
+            .review input
+            {
+                margin-top: 10px;
+            }
+        }
+
+h3
+{
+    font-family: 'Oswald', Helvetica, Arial;
+    font-size: 30px;
+    color: #2c3e50;
+}
+h1
+{
+    font-family: 'Open Sans Condensed', Helvetica, Arial;
+    font-size: 52px;
+    letter-spacing: 1px;
+    color: #7f8c8d;
+}
+h2
+{
+    font-family: 'Oswald', Helvetica, Arial;
+    color: #ecf0f1;
+    
+}
+
+.rows
+{
+    color: #2c3e50;
+}
+
+h5
+{
+    font-family:  Arial;
+    font-style: bold;
+    color: #b2b2b2;
+}
+
+
+h4
+{
+    font-family:  Arial;
+    color: #2c3e50;
+  
+}
+p
+{
+    font-family:  Arial;
+    color: #2c3e50;
+}
+
+
+
+/*STYLE FOR BOOK PAGE*/
+body
+{
+    background: #2c3e50;
+}
+header
+{
+    padding: 14px 0 11px 10px;
+    background: #ecf0f1;
+}
+.logo1
+{
+    display: block;
+    width: 138px;
+    height: 30px;
+    background : url("images/logo1.png") no-repeat;
+    text-indent: -9999px;
+}
+
+.info
+{
+    background: #ecf0f1;
+    padding: 26px 30px 21px 39px;
+    height: 350px;
+    border-radius: 0 50px 0 0;
+}
+.Book-info
+{
+    padding: 70px 0 0 10px;
+}
+.rate
+{
+    margin-left: -20px;
+    margin-top: 20px;
+    
+}
+.rating-w-images li
+{
+    width: 18px;
+    height: 17px;
+    display: inline-block;
+    background: transparent url('stars.png') no-repeat 0 0;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.rating-w-images li:hover
+{
+    background-position: -18px 0;
+}
+
+.user-rating-w-images li
+{
+    width: 18px;
+    height: 17px;
+    display: inline-block;
+    background: transparent url('stars.png') no-repeat 0 0;
+    cursor: pointer;
+    
+}
+
+.user-rating-w-images li.rated
+{
+    width: 18px;
+    height: 17px;
+    display: inline-block;
+    background: transparent url('stars.png') no-repeat -18px 0;
+    cursor: pointer;
+    
+}
+
+.user-rating-w-images li:hover
+{
+    background-position: -18px 0;
+}
+
+
+.img-c
+        {
+            border-radius: 50px;
+        }
+
+.btn
+{
+    width: 177px;
+    background: #f1c40f;
+    border-radius: 0 0 20px 20px;
+    margin: 10px 0 10px 0;
+    font-family:  Arial;
+    color: #2c3e50;
+  
+}
+
+.reviews
+{
+    padding-left: 10px;
+}
+
+.review
+{
+    
+    background: #ecf0f1;
+    padding: 22px 45px 23px 27px;
+    border-radius: 50px 0 0 0;
+    margin: 10px 0px
+}
+
+.user-review img
+{
+    border-radius: 50%;
+}
+
+.userp
+{
+    padding-left: 30px;
+}
+
+.up
+{
+    width: 0;
+    height: 0;
+    border-bottom: 30px solid #f1c40f;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+.down
+{
+    width: 0;
+    height: 0;
+    border-top: 30px solid #f1c40f;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+.comm
+{
+    padding: 10px 0 0 10px;
+}
+

@@ -1,0 +1,127 @@
+<%= stylesheet_link_tag 'bookstyle', media: 'all', 'data-turbolinks-track' => false %>
+<%= javascript_include_tag 'jquery.raty.js'%>
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="logo1">BookShare</a>
+            </div>
+        </div>
+</div>
+
+ <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <%= link_to "Home", root_path, class: "navbar-brand"%></li>
+                    </div>
+                
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><%= link_to "Home", root_path%></li>
+                        <li><%=link_to "Communities", communities_path %></li>
+                        <% if user_signed_in?%>
+                         <li><%=link_to "Profile", user_path(current_user) %></li>
+                         <li><%=link_to "Sign Out", users_sign_out_path%></li>
+                          <% else %>
+                        <li ><a href="#">Contact Us</a></li>
+                        <li ><a href="#">About</a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+ <div class="container">
+            <div class="Book-info">
+            <div class="updateBook col-md-offset-10">
+            <% if user_signed_in?%>
+              <h4><%=link_to "update this book", edit_book_path(@book) %></h4>
+              <% end %>
+            </div>
+        <div class="row">
+            <div class="col-lg-2">
+               <%= image_tag @book.image.url(:medium) %>
+                     <div id="follow_<%=@book.id%>">
+                     <% if user_signed_in?%>
+                     <% if current_user.follows?(@book) %>
+                         <h4><%= link_to "unfollow", unfollow_book_path(@book), class: 'btn'%></h4>
+                     <% else %>
+                         <h4><%= link_to "follow", follow_book_path(@book), class: 'btn'%></h4>
+                     <% end %>
+                     <% end %>
+                </div>
+        </div>
+                
+                <div class="col-lg-10">
+                    <div class="info">
+                       
+                    <h3><%=@book.title%></h3>
+                     <h5>by <%=@authors%> </h5>
+                     <p>(<%= pluralize(@followers, "follower") %>)</p>
+                        <p><%= @book.description%></p>
+                           
+                        
+                    <div class="rate text-center">
+                      <div class="rate">
+                      <div class="star-rating" data-score=<%= @avg_review%>></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+    
+            
+<!--    reviews -->
+    <div class="reviews">
+        <div class="container">
+        <div class="row">
+            <h2>Reviews</h2>
+            <% if user_signed_in?%>
+            <% if current_user.follows?(@book)%>
+                  <div class="row reviewinput">
+                <div class="col-md-12">
+                    <%= form_for([@book,Review.new] , remote: true, html:{ class: 'form-horizontal post'}) do |form|%>
+                      <div class="form-group">
+                    <div class="col-md-7 col-md-offset-1">
+                     <%= form.text_field :body, class: 'form-control textinput' %>
+                     <div id="star-rating"></div>
+                      </div>
+                      <div class="col-md-3">
+                      <%= form.submit "Add Review", class: 'form-control' %>  
+                      </div>
+                  </div>
+                  <% end %>
+                  <% end %>
+                </div>
+        </div>
+        <% end %> 
+            
+        </div>
+            <hr>
+        </div>
+    </div>
+    
+<!--   end reviews -->
+    
+<!--user review-->
+    
+    <div class="container">
+    <div class="review-body">
+        <%= render @book.reviews.reverse %>
+          <hr>
+        
+    </div>
+    </div>
+
+<script>
+  $('#star-rating').raty({
+    path: '/assets/',
+    scoreName: 'review[rating]'
+  });
+</script>

@@ -1,0 +1,14 @@
+body
+        {
+            background: #1f3143 url("banner.png") no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            
+            
+        }
+        .jumbotron
+        {
+            background: none;
+            height: auto;
+        }
+

@@ -1,0 +1,131 @@
+<%= stylesheet_link_tag 'user-style', media: 'all', 'data-turbolinks-track' => true %>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="logo1">BookShare</a>
+            </div>
+        </div>
+</div>
+
+ <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <%= link_to "Home", root_path, class: "navbar-brand"%></li>
+                    </div>
+                
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><%= link_to "Home", root_path%></li>
+                        <li><%=link_to "Communities", communities_path %></li>
+                        <% if user_signed_in?%>
+                         <li><%=link_to "Profile", user_path(current_user) %></li>
+                         <li><%=link_to "edit Account", edit_user_registration_path(@user) %></li>
+                         <li><%=link_to "Sign Out", users_sign_out_path%></li>
+                          <% else %>
+                        <li ><a href="#">Contact Us</a></li>
+                        <li ><a href="#">About</a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+<div class="container">
+            <div class="row">
+                <div class="content">
+                <div class="col-lg-8">
+                    <div class="userinfo">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <%= image_tag @user.image.url , size: "100x100" %>
+                            </div>
+                            <div class="col-lg-6">
+                                <h4><%=[@user.first_name,@user.last_name].join(" ")%> (<%= @user.username%>)</h4>
+                                <% unless current_user == @user %>
+                                    <% if current_user.follows?(@user) %>
+                                          <h4><%=link_to "unfollow", unfollow_user_path(@user)%></h4>
+                                    <% else %>
+                                          <h4><%=link_to "follow", follow_user_path(@user)%></h4>
+                                    <% end %>
+                                <% end %>
+                                <h4><%= @user.gender%></h4>
+                                <h4><%= @age.to_s + " years old"%></h4>
+                                <h4>Country: <%= @user.country%></h4>
+                                <h4>Total Reviews: <%=@reviews.count%></h4>
+                                <h4>Total followers: <%= @followers_count%></h4>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <h3>Latest Activity</h3>
+                            <hr>
+                            <h4>
+                          
+                                <% @activity.each do |b|%>
+                                <p><%=@user.first_name%> followed a <%= b.followable_type%>:
+                                    <% if b.followable_type == 'Book'%>
+                                <%= link_to "#{Book.find(b.followable_id).title}", book_path(Book.find(b.followable_id))%> <%= time_ago_in_words(b.created_at)%> Ago</p>
+                                    <% else %>
+                                  <%=link_to "#{[User.find(b.followable_id).first_name,User.find(b.followable_id).last_name].join(" ")}", user_path(b.followable_id)%> <%= time_ago_in_words(b.created_at)%> Ago</p>
+                                    <% end %>
+                                <% end %>
+                             
+                            </h4>
+                            
+                             <h4>
+                             
+                                <% @reviews.each do |b|%>
+                                <p><%=@user.first_name%> gave <%= pluralize(b.rating, "stars")%> to <%= link_to "#{Book.find(b.book_id).title}", book_path(Book.find(b.book_id))%> and wrote a <%= link_to "review", book_path(Book.find(b.book_id), anchor: "review_#{b.id}") %> <%= time_ago_in_words(b.created_at)%> Ago
+                                    </p>
+                                <% end %>
+                              
+                            </h4>
+                           
+                        </div>
+
+                </div>
+                
+                
+                <div class="col-lg-4">
+                    <div class="friends">
+                    <div class="row">
+                        <div class="col-lg-4"><h3>Following</h3>
+                        <hr>
+                            </div>
+                    </div>
+
+                    <% @followees.each do |followees| %>
+                     <div class="row"> 
+                        <div class="col-lg-2">   
+                            <%= image_tag followees.image.url(:thumb), size: "40x40" %>
+                        </div>
+                        <div class="col-lg-5">
+                            <h5><%= link_to [followees.first_name,followees.last_name].join(" "), followees%></h5> 
+                        </div>
+                         
+                        <div class="col-lg-5">
+                            <div class="btn-group btn-group-x4">
+                            <% unless current_user == followees %>
+                            <% if current_user.follows?(followees) %>
+                                <%= link_to "unfollow",unfollow_user_path(followees), class: 'btn btn-default' %>
+                              <% else %>
+                                <%= link_to "follow",follow_user_path(followees), class: 'btn btn-default' %>
+                            <% end %>
+                            <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <% end %>
+                    <br>
+                </div>
+                </div>
+                 
+            </div>
+
+       </div>
+    </div>

@@ -1,0 +1,43 @@
+<%= div_for review do %>
+        <div class="row">
+            <div class="col-lg-1">       
+            <%= image_tag User.find(review.user_id).image.url, size: '50x50', class: 'img-c' %>
+                </div>
+                <div class="col-lg-10">
+                    <div class="userp">
+                    
+                        
+                        <div class="rate pull-right">
+                           <div class="star-rating" data-score=<%= review.rating%>></div>
+                        </div>
+                   <h3><%=link_to "#{[User.find(review.user_id).first_name,User.find(review.user_id).last_name].join(" ")}", user_path(review.user_id) %></h3>
+                        
+                        <p><%= review.body%></p>
+                    
+                </div>
+                    </div>
+            
+            <div class="col-lg-1">
+                <div class="rows pull-right text-center">
+                
+                <% likes = Like.where("likeable_type = 'Review' AND likeable_id = #{review.id}").count%>
+                        <div class="up"></div>
+
+                    <h2 class="rows"><%= likes %></h2>
+                        <div class="down"></div>  
+                    </div>
+          
+            </div>
+            
+            </div>
+<% end %>
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

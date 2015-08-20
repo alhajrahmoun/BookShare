@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BookShare</title>
+ 
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+  <%= stylesheet_link_tag 'style', media: 'all'%>
+  <%= javascript_include_tag 'application'%>
+  <%= javascript_include_tag "jquery-1.11.2.min.js", "bootstrap.min.js" %>
+  <%= csrf_meta_tags %>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<%= yield %>
+
+
+</body>
+</html>

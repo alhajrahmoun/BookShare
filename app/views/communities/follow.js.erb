@@ -1,0 +1,1 @@
+$("#community_<%= @community.id %> * .follow-community").html('<h4><%=link_to "unfollow", unfollow_community_path(@community), remote: true, class: "btn btn-primary"%></h4>');

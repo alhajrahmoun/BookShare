@@ -1,0 +1,96 @@
+<%= stylesheet_link_tag 'bookstyle', media: 'all', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'jquery.raty.js'%>
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="logo1">BookShare</a>
+            </div>
+        </div>
+</div>
+
+ <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <%= link_to "Home", root_path, class: "navbar-brand"%></li>
+                    </div>
+                
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><%= link_to "Home", root_path%></li>
+                        <li><%=link_to "Communities", communities_path %></li>
+                        <% if user_signed_in?%>
+                       <li><%=link_to "Profile", user_path(current_user) %></li>
+                         <li><%=link_to "Sign Out", users_sign_out_path%></li>
+                          <% else %>
+                        <li ><a href="#">Contact Us</a></li>
+                        <li ><a href="#">About</a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+ <div class="container">
+            <div class="Book-info">
+        		<div class="row">
+            	<div class="col-lg-2">
+                <%= image_tag @community.image.url(:medium) %>
+                    <div id="community_<%=@community.id%>">
+                    <% if user_signed_in?%>
+                     <% if current_user.follows?(@community) %>
+                         <h4><%= link_to "unfollow", unfollow_community_path(@community),remote: true, class: 'btn'%></h4>
+                     <% else %>
+                         <h4><%= link_to "follow", follow_community_path(@community), remote: true, class: 'btn'%></h4>
+                     <% end %>
+                     <% end %>
+                    </div>
+        		</div>
+                
+                <div class="col-lg-10">
+                    <div class="info">
+                       
+                    <h3><%=@community.name%></h3>
+                        <p>(<%= pluralize(@followers, "User") %> follow this community)</p>
+                        <p><%= @community.description%></p>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reviews">
+        <div class="container">
+        <div class="row">
+            <h2>Books</h2>
+            
+        </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container">
+        <% @books.each do |book| %>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+        	<%= image_tag book.image.url(:medium)%>
+            <h5><%= link_to "#{book.title}", book_path(book)%></h5>
+        	<div id="follow_<%=book.id%>">
+            <% if user_signed_in?%>
+            <% if current_user.follows?(book) %>
+                         <h4><%= link_to "unfollow", unfollow_book_path(book),remote: true, class: 'btn'%></h4>
+                     <% else %>
+                         <h4><%= link_to "follow", follow_book_path(book), remote: true, class: 'btn'%></h4>
+            <% end %>
+            <% end %>
+            </div>
+        
+        </div>
+        <% end %>
+        </div>
+    </div>
+
+</div>
